@@ -72,8 +72,8 @@ jobs:
         - cd $TRAVIS_BUILD_DIR/docs && npm i
         - cd $TRAVIS_BUILD_DIR/docs && npm run gh-pages
       env:
-        # travis encrypt GITHUB_TOKEN=...
-        - secure: "TBeQ/IHObOLCf8LpoKkhAM5D78UzAW4K24tB4ma4cP3jwFCdV2aPUEBAvdD3SqVeVt+qPZvpdQUnhF2FFi/xlFN2eM0J570EOPbIc1u96l/izXTASX6ogHYtSKS1QdC2Zk6fQvj4xuR2q6NcBsv87RXf7vTPROcqB+1TwrBsvz5k+xPh4SnqzwoCur/zKL3orNyz/Oe5rIZ8gXzxkzd9nqyn+cYZD4/xodWLM1GORQD3C0KDMCQ/aE/TTU7s9Dlfj2tt4h5xIEsZp0zvDgNK15GGntNcjEBCH5CHiPeFfEj76DTcTcvjoUf0uHoawpPaXGQ+8booxqdORbtsUtlKXGQWptvOr2XHbZLHAunesfQgeBKwU89b96h3iyJYiJD+3rDnydRx73Re3QuLLYGRvx6oL60hXN6G7GQL1rYiVSaT5SectMdFWbfj1X/2/S48gnsvPzAJKd2Yj7ILayjfZgYUaM65SF9bN40yNno0qxE6VDkg/4m/0fS3WLqoxz+8hY/Z/5pADRgic4/auuYluyFus18NFFdlvY1Vl/NtD0S8xz+j3LYOD+ObqSIvGc/roWZdFtHf1xEfiiAP1DtOaIs+7dXt8PWuuVTry2/wt/2SN/FqDcfzs7IbZIvGz37oZDg0mZkgYJ5lsHC9PRSybQVSB+YGFD/+eOpglSeE38Y="
+        # travis encrypt GITHUB_TOKEN=ololo-trololo
+        - secure: "eRxQg/ZB0uXd6Bqj6+wbMdbzRDbqXfAtu/2f0A/G74RydXNJz4H8YOtPw7xm/Pu4o1iaVaYj9Pse/vVVo7SVRUIkYui1beBKGGfyHSVidLZAwYeoR/bpuXzBbWq7gs/er/6p8MYgYchc9ForrTqWzDtEuqHRN0VlBbfWw87zlI4Bwicvr3Jg0fMuDRFTR5Fx3H8LNY5aNhxr4MIhzihtUk0a6oj6U7SxU/PwScEeBIkKPRMmmOuxAYI7Q/qGSApd2sMgDTZQcBZ+G0jQFP/YMz1CT0ucD/bwc6yp5DJ4i1N59l5+3ZjZsJKohNk65TfPsxxu+M3v4HEA3hqHJ81gk2cKC+wPFUqPTA0zLqQ0GqDT9dcEr7PUzRu5lx73R0ObcT/AsHxkeJti3ed6xTgnpjyRP+acaMIgbTGbuRR+bn5ymQJzJ7Vkh/Uwrr/46Xoc/e+KJeJydXEqovjXZ1+I4wesaDOAJndBYT7pzD2/kuXGchd8RXvCuOq3arqGotxskRLo8+GwxjJBzsbZj9eXjZN33cYeOeGEO0qtFeedB7ef5Xz0w7WL7pG0przuOBhT6ikMdFS/N3jt6m/Uuojv/8kL2TGB/a4nv9jUQjnhePUNNa5FzSnh5e7GCKJWQh0Nf0bwZ7HL5OexPL/R5rmcqy7mk2FJPzqxTZ0UJIpoEJg="
       deploy: &pages
         provider: pages
         github-token: "$GITHUB_TOKEN"

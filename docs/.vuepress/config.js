@@ -5,7 +5,7 @@ module.exports = {
     ],
     base: baseHref,
     themeConfig: {
-        repo: 'daggerok/boot-your-coroutines',
+        repo: 'daggerok/boot-your-reactor-kotlin-coroutines',
         // lastUpdated: 'Last Updated',
     },
     markdown: {
