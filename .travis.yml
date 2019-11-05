@@ -1,0 +1,95 @@
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: false
+language: java
+jdk: openjdk11
+node_js: lts/*
+python: 3.7
+matrix:
+  include:
+    - python: 3.7
+services:
+  - xvfb
+  - docker
+addons:
+  apt:
+    update: false
+    packages:
+      - jq
+      - bash
+      - curl
+      - tree
+      - docker-ce
+      - libxml2-utils
+      - libappindicator1
+      - fonts-liberation
+      - google-chrome-stable
+      - python3-setuptools
+      - python3-pip
+install: true
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  #
+  - |
+    if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+      mkdir -p ${HOME}/.local/daggerok/bash-functions/master ;
+      curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+    fi
+    source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+  - stop_any 80 5432 8080 8081 8082 8083 8084 8085 8086 8087 8088
+  #
+  - export PATH=$HOME/.local/bin:$PATH
+  - pip -V
+  - docker-compose version
+  - pip3 install --user --upgrade pip
+  - pip install --user --upgrade httpie docker-compose
+  - http --version --debug
+  - pip -V
+  #
+  - stop_any 80 8080 5432
+  - docker-compose version
+env:
+  global:
+    - TERM=dumb
+jobs:
+  include:
+    - stage: test
+      name: gradle opernjdk11
+      jdk: openjdk11
+      script: ./gradlew
+    - stage: test
+      jdk: openjdk8
+      name: gradle opernjdk8
+      script: ./gradlew
+    - stage: deploy
+      name: VuePress documentation deployment
+      node_js: lts/*
+      script: skip
+      before_deploy:
+        - cd $TRAVIS_BUILD_DIR/docs && npm i
+        - cd $TRAVIS_BUILD_DIR/docs && npm run gh-pages
+      env:
+        # travis encrypt GITHUB_TOKEN=...
+        - secure: "TBeQ/IHObOLCf8LpoKkhAM5D78UzAW4K24tB4ma4cP3jwFCdV2aPUEBAvdD3SqVeVt+qPZvpdQUnhF2FFi/xlFN2eM0J570EOPbIc1u96l/izXTASX6ogHYtSKS1QdC2Zk6fQvj4xuR2q6NcBsv87RXf7vTPROcqB+1TwrBsvz5k+xPh4SnqzwoCur/zKL3orNyz/Oe5rIZ8gXzxkzd9nqyn+cYZD4/xodWLM1GORQD3C0KDMCQ/aE/TTU7s9Dlfj2tt4h5xIEsZp0zvDgNK15GGntNcjEBCH5CHiPeFfEj76DTcTcvjoUf0uHoawpPaXGQ+8booxqdORbtsUtlKXGQWptvOr2XHbZLHAunesfQgeBKwU89b96h3iyJYiJD+3rDnydRx73Re3QuLLYGRvx6oL60hXN6G7GQL1rYiVSaT5SectMdFWbfj1X/2/S48gnsvPzAJKd2Yj7ILayjfZgYUaM65SF9bN40yNno0qxE6VDkg/4m/0fS3WLqoxz+8hY/Z/5pADRgic4/auuYluyFus18NFFdlvY1Vl/NtD0S8xz+j3LYOD+ObqSIvGc/roWZdFtHf1xEfiiAP1DtOaIs+7dXt8PWuuVTry2/wt/2SN/FqDcfzs7IbZIvGz37oZDg0mZkgYJ5lsHC9PRSybQVSB+YGFD/+eOpglSeE38Y="
+      deploy: &pages
+        provider: pages
+        github-token: "$GITHUB_TOKEN"
+        local-dir: docs/.vuepress/dist
+        # require gh-pages to be created manually first before deployment!
+        target_branch: gh-pages
+        skip_cleanup: true
+        keep-history: true
+        on:
+          branch: master
+          condition: "$TRAVIS_PULL_REQUEST = false"
+cache:
+  directories:
+    - ./docs/node_modules
+    - ~/.local/daggerok
+    - ~/.docker
+    - ~/.n*
+  packages: true
+  npm: true
