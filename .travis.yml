@@ -129,6 +129,7 @@ cache:
   directories:
     - ./docs/node_modules
     - ~/.local/daggerok
+    - ~/.gradle
     - ~/.docker
     - ~/.n*
   packages: true
