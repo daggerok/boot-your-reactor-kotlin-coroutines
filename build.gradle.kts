@@ -40,7 +40,7 @@ tasks {
             }
         }
     }
-    val buildSrcProjects = listOf("bot", "user-message")
+    val buildSrcProjects = listOf("bot", "city", "user-message")
     buildSrcProjects.forEach {
         register<Copy>("$it-buildSrc") {
             from("$rootDir/buildSrc")

@@ -100,6 +100,16 @@ jobs:
         - sleep 1s
         - stop_any 80 8080
     - stage: test
+      name: city opernjdk11 bash
+      jdk: openjdk11
+      script:
+        - ./gradlew -b city/build.gradle.kts
+        - bash city/build/libs/*.jar &
+        - wait_for 8080
+        - http :8080
+        - sleep 1s
+        - stop_any 80 8080
+    - stage: test
       jdk: openjdk13
       name: gradle opernjdk13
       script: ./gradlew dependencyUpdates -Drevision=release

@@ -1,4 +1,4 @@
-package com.github.daggerok.coroutines.usermessage
+package com.github.daggerok.coroutines.city
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -25,8 +25,8 @@ class CityResource(private val cityRepository: CityRepository) {
 
 @SpringBootApplication
 @EnableTransactionManagement
-class UserMessageApplication
+class CityApplication
 
 fun main(args: Array<String>) {
-    runApplication<UserMessageApplication>(*args)
+    runApplication<CityApplication>(*args)
 }
