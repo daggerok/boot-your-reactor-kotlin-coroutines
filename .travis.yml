@@ -64,6 +64,11 @@ jobs:
       jdk: openjdk13
       name: gradle opernjdk13
       script: ./gradlew
+    - stage: test
+      jdk: openjdk13
+      name: gradle opernjdk13
+      script: ./gradlew dependencyUpdates -Drevision=release
+      after_script: cat build/dependencyUpdates/report.txt
     - stage: deploy
       name: VuePress documentation deployment
       node_js: lts/*

@@ -1,9 +1,11 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
     idea
     base
     java
+    id("com.github.ben-manes.versions") version Globals.versionsGradlePluginVersion
 }
 
 allprojects {
@@ -25,6 +27,18 @@ tasks {
             showExceptions = true
             showStandardStreams = true
             events(PASSED, SKIPPED, FAILED)
+        }
+    }
+    named<DependencyUpdatesTask>("dependencyUpdates") {
+        resolutionStrategy {
+            componentSelection {
+                all {
+                    val rejected = listOf("alpha", "beta", "rc", "cr", "m", "preview", "b", "ea", "SNAPSHOT")
+                            .map { qualifier -> Regex("(?i).*[.-]$qualifier[.\\d-+]*") }
+                            .any { it.matches(candidate.version) }
+                    if (rejected) reject("Release candidate")
+                }
+            }
         }
     }
 }
