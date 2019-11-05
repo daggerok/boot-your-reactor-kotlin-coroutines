@@ -125,6 +125,8 @@ jobs:
         on:
           branch: master
           condition: "$TRAVIS_PULL_REQUEST = false"
+before_cache:
+  - for i in `find ~/.gradle -name '*.lock' -type file` ; do rm -rfv $i ; done
 cache:
   directories:
     - ./docs/node_modules
