@@ -8,4 +8,6 @@ Build Status: [![Build Status](https://travis-ci.org/daggerok/boot-your-reactor-
 
 ```bash
 ./gradlew
+
+bash ./bot/build/libs/*.jar
 ```
