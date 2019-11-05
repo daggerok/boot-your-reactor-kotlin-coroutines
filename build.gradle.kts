@@ -1,5 +1,4 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
     idea
@@ -13,7 +12,7 @@ allprojects {
     version = Globals.version
 
     apply<JavaGradlePluginPlugin>()
-    java.sourceCompatibility = JavaVersion.VERSION_11
+    java.sourceCompatibility = Globals.javaVersion
 }
 
 tasks {
@@ -26,7 +25,7 @@ tasks {
         testLogging {
             showExceptions = true
             showStandardStreams = true
-            events(PASSED, SKIPPED, FAILED)
+            events(*Globals.testLoggingEvents)
         }
     }
     named<DependencyUpdatesTask>("dependencyUpdates") {
@@ -41,6 +40,21 @@ tasks {
             }
         }
     }
+    val buildSrcProjects = listOf("bot", "user-message")
+    buildSrcProjects.forEach {
+        register<Copy>("$it-buildSrc") {
+            from("$rootDir/buildSrc")
+            into("$rootDir/$it/buildSrc")
+            doLast {
+                println("content copied to $rootDir/$it/buildSrc folder.")
+            }
+        }
+    }
+    register("buildSrc") {
+        dependsOn(buildSrcProjects
+                .map { "$it-buildSrc" }
+                .toTypedArray())
+    }
 }
 
-defaultTasks("clean", "build")
+defaultTasks("clean", "buildSrc", "build")

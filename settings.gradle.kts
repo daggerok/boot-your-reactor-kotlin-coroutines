@@ -1,5 +1,1 @@
-rootProject.name = Globals.artifactId
-
-include(
-        ":bot"
-)
+rootProject.name = "boot-your-reactor-kotlin-coroutines"

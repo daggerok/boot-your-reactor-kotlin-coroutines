@@ -57,13 +57,48 @@ env:
 jobs:
   include:
     - stage: test
-      name: gradle opernjdk11
+      name: boot-your-reactor-kotlin-coroutines opernjdk11
       jdk: openjdk11
       script: ./gradlew
     - stage: test
       jdk: openjdk13
-      name: gradle opernjdk13
+      name: boot-your-reactor-kotlin-coroutines opernjdk13
       script: ./gradlew
+    - stage: test
+      name: bot opernjdk11
+      jdk: openjdk11
+      script:
+        - ./gradlew -b bot/build.gradle.kts
+        - java -jar bot/build/libs/*.jar
+    - stage: test
+      name: bot opernjdk11 bash
+      jdk: openjdk11
+      script:
+        - ./gradlew -b bot/build.gradle.kts
+        - bash bot/build/libs/*.jar
+    - stage: test
+      name: bot opernjdk13
+      jdk: openjdk13
+      script:
+        - ./gradlew -b bot/build.gradle.kts
+        - java -jar bot/build/libs/*.jar
+    - stage: test
+      name: bot opernjdk13 bash
+      jdk: openjdk13
+      script:
+        - ./gradlew -b bot/build.gradle.kts
+        - bash bot/build/libs/*.jar
+    - stage: test
+      name: user-message opernjdk11 bash
+      jdk: openjdk11
+      script:
+        - ./gradlew -b user-message/build.gradle.kts
+        - bash user-message/build/libs/*.jar &
+        - wait_for 8080
+        - http :8080/actuator
+        - http :8080/actuator/health
+        - sleep 1s
+        - stop_any 80 8080
     - stage: test
       jdk: openjdk13
       name: gradle opernjdk13
@@ -78,7 +113,7 @@ jobs:
         - cd $TRAVIS_BUILD_DIR/docs && npm run gh-pages
       env:
         # travis encrypt GITHUB_TOKEN=ololo-trololo
-        - secure: "eRxQg/ZB0uXd6Bqj6+wbMdbzRDbqXfAtu/2f0A/G74RydXNJz4H8YOtPw7xm/Pu4o1iaVaYj9Pse/vVVo7SVRUIkYui1beBKGGfyHSVidLZAwYeoR/bpuXzBbWq7gs/er/6p8MYgYchc9ForrTqWzDtEuqHRN0VlBbfWw87zlI4Bwicvr3Jg0fMuDRFTR5Fx3H8LNY5aNhxr4MIhzihtUk0a6oj6U7SxU/PwScEeBIkKPRMmmOuxAYI7Q/qGSApd2sMgDTZQcBZ+G0jQFP/YMz1CT0ucD/bwc6yp5DJ4i1N59l5+3ZjZsJKohNk65TfPsxxu+M3v4HEA3hqHJ81gk2cKC+wPFUqPTA0zLqQ0GqDT9dcEr7PUzRu5lx73R0ObcT/AsHxkeJti3ed6xTgnpjyRP+acaMIgbTGbuRR+bn5ymQJzJ7Vkh/Uwrr/46Xoc/e+KJeJydXEqovjXZ1+I4wesaDOAJndBYT7pzD2/kuXGchd8RXvCuOq3arqGotxskRLo8+GwxjJBzsbZj9eXjZN33cYeOeGEO0qtFeedB7ef5Xz0w7WL7pG0przuOBhT6ikMdFS/N3jt6m/Uuojv/8kL2TGB/a4nv9jUQjnhePUNNa5FzSnh5e7GCKJWQh0Nf0bwZ7HL5OexPL/R5rmcqy7mk2FJPzqxTZ0UJIpoEJg="
+        - secure: "n3/ZYgUxU2odhmf7dA/UQVWzaNLirxixAA1zg7unQA5mKLfsGR/R3PrBJ+/YJk1mczMGoNxfo20Sox+qI6aJvHTA5jqg7510poFdmQNa5VudONs+znvkACQ1mYL2wK29/gkM4e8gId8rTEkmbodTF1gka0bJYezLLPaVIN2LdwXScnez64T5Yun31zc/910CcrfTn3TOnA0kSzmf/0FYbaP2NmyRubGp5FB8pdryWXmk+UlTysbGHUod6E/t6QyjerxkSu8hZZYzF96U2xrJHff2EKZA3XkOc29peRtKguSnobF7Yf/8h+XvXcMx/x4ORGxp67uWvxz967lIVDqAL0JF4UskImDqjliHsJB8gu5IHfk60QTZjQMuVUSFvf/tz+kqgEu40c/AzxlZQftSsk9gPrJDVuVQjJSwmtFg5KFaNe2tvmP7c9lyQZWnVDd0GWmsCE6DQysEqAYpRpQui5k2ZCdZO2R67XTqZZYAJFzkYdiwRqsNKWII8mR0P5paD3FtnpgHblEal4x8teuME4uKPOaqHQ4iozIwJTXOjhgoAinVu9HisjK8wi2g8aEJpwx9s7lPZ0iMeES7DulON9thIL49iTbTFjnOzonnh6xM32AJqcBFUdR+VHLO3ciR+cun3HKvK0wJcIXgeGRzohkhwTsK3glbZAJiMT7H3uY="
       deploy: &pages
         provider: pages
         github-token: "$GITHUB_TOKEN"
