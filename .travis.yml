@@ -72,10 +72,6 @@ jobs:
       jdk: openjdk11
       script: ./gradlew
     - stage: test
-      jdk: openjdk13
-      name: boot-your-reactor-kotlin-coroutines opernjdk13
-      script: ./gradlew
-    - stage: test
       name: bot opernjdk11
       jdk: openjdk11
       script:
@@ -88,14 +84,14 @@ jobs:
         - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
     - stage: test
-      name: bot opernjdk13
-      jdk: openjdk13
+      name: bot opernjdk11
+      jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - java -jar bot/build/libs/*.jar
     - stage: test
-      name: bot opernjdk13 bash
-      jdk: openjdk13
+      name: bot opernjdk11 bash
+      jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
@@ -124,8 +120,8 @@ jobs:
         - sleep 1s
         - stop_any 80 8080
     - stage: test
-      jdk: openjdk13
-      name: gradle opernjdk13
+      jdk: openjdk11
+      name: gradle opernjdk11
       script: ./gradlew dependencyUpdates -Drevision=release
       after_script: cat build/dependencyUpdates/report.txt
     - stage: deploy
@@ -167,4 +163,4 @@ cache:
     - ~/.n*
   packages: true
   npm: true
-if: tag IS empty
+if: tag IS blank
