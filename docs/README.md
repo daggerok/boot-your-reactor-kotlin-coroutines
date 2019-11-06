@@ -8,8 +8,9 @@ Build Status: [![Build Status](https://travis-ci.org/daggerok/boot-your-reactor-
 
 ```bash
 ./gradlew
-
 ./gradlew -b ./user-message/build.gradle.kts
-docker images -f=reference='daggerok/*'
-docker images -f=reference='*/user-message'
+#docker images -f=reference='daggerok/*'
+./gradlew -b ./city/build.gradle.kts start-user-message
+./gradlew -b ./city/build.gradle.kts stop-user-message
+#docker images -f=reference='*/user-message'
 ```
