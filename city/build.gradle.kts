@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.spring") version Globals.kotlinVersion
     id("org.springframework.boot") version Globals.springBootVersion
     id("io.spring.dependency-management") version Globals.dependencyManagementVersion
+    id("com.google.cloud.tools.jib") version Globals.jibGradlePluginVersion
     id("org.ajoberstar.reckon") version Globals.reckonGradlePluginVersion
 }
 
