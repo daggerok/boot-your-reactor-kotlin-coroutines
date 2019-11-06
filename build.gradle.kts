@@ -4,16 +4,18 @@ plugins {
     idea
     base
     java
+    id("org.ajoberstar.reckon") version Globals.reckonGradlePluginVersion
     id("com.github.ben-manes.versions") version Globals.versionsGradlePluginVersion
 }
 
-allprojects {
-    group = Globals.groupId
-    version = Globals.version
-
-    apply<JavaGradlePluginPlugin>()
-    java.sourceCompatibility = Globals.javaVersion
+group = Globals.groupId
+// version = Globals.version // reckon
+reckon {
+    scopeFromProp()
+    // stageFromProp()
+    snapshotFromProp()
 }
+java.sourceCompatibility = Globals.javaVersion
 
 tasks {
     withType<Wrapper>().configureEach {

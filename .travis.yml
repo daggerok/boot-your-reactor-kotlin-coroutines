@@ -120,13 +120,20 @@ jobs:
     - stage: deploy
       name: VuePress documentation deployment
       node_js: lts/*
-      script: skip
-      before_deploy:
-        - cd $TRAVIS_BUILD_DIR/docs && npm i
-        - cd $TRAVIS_BUILD_DIR/docs && npm run gh-pages
+      jdk: openjdk11
       env:
         # travis encrypt GITHUB_TOKEN=ololo-trololo
         - secure: "n3/ZYgUxU2odhmf7dA/UQVWzaNLirxixAA1zg7unQA5mKLfsGR/R3PrBJ+/YJk1mczMGoNxfo20Sox+qI6aJvHTA5jqg7510poFdmQNa5VudONs+znvkACQ1mYL2wK29/gkM4e8gId8rTEkmbodTF1gka0bJYezLLPaVIN2LdwXScnez64T5Yun31zc/910CcrfTn3TOnA0kSzmf/0FYbaP2NmyRubGp5FB8pdryWXmk+UlTysbGHUod6E/t6QyjerxkSu8hZZYzF96U2xrJHff2EKZA3XkOc29peRtKguSnobF7Yf/8h+XvXcMx/x4ORGxp67uWvxz967lIVDqAL0JF4UskImDqjliHsJB8gu5IHfk60QTZjQMuVUSFvf/tz+kqgEu40c/AzxlZQftSsk9gPrJDVuVQjJSwmtFg5KFaNe2tvmP7c9lyQZWnVDd0GWmsCE6DQysEqAYpRpQui5k2ZCdZO2R67XTqZZYAJFzkYdiwRqsNKWII8mR0P5paD3FtnpgHblEal4x8teuME4uKPOaqHQ4iozIwJTXOjhgoAinVu9HisjK8wi2g8aEJpwx9s7lPZ0iMeES7DulON9thIL49iTbTFjnOzonnh6xM32AJqcBFUdR+VHLO3ciR+cun3HKvK0wJcIXgeGRzohkhwTsK3glbZAJiMT7H3uY="
+        - secure: "m2vQZal8xQ1SbQnkzt922UZ1BlU97WKxIkzmQ/UHeGXXfNn/PEhhfrZM4szB4Tpam1XjZN++LodA9auGuahgHovIL6MFjb2j9+t3ttMcbEUjPAc3INrRJ9DjZCYvF6vTQGE5oW4fnvVn+Qjn7NkxjjeBTIm0Rn09gnV6dMGk05vfPtBe+A3biHS8ldOpvygJ0a/xkoOXzP4k3f4keSES47h2zcMRtJT5X8f5kvRoA7mpaKt3G/UxCLZH+t+O19gkCQzmWAY2RgfE4fBPEECqsZXd5y5v0i8MiI/XO9N+hLowVLRAGaeAy4PaKiI23did/AZeySlGuc7QpW3qJtg63194Fmj79VwoGht5/jnbfemuZ2qW4dEs0nQWr8WbqNugzYBEXk/MWBbV+c4RYSwKQlRmEhQ7uRk4ubwgSg+j/BIoBcr8MlQuo/UZ8V5hp/lgb1FG9ONTMAQjMKawPkEP6bFlWumKl/DDk9WoHg6Khp2Vnw8jMV/79LndEfQg9tZBTuutAvLYMxzkDg9pDQAAE7YCfCDiNdPpvxbvbWKa3sJM4IKBBhjl8JLxwCSuCBarBezQfOWWVtwsJR5am8bnbrBDc05Am93NmD1DT43nflI/sDnuA/6iPF3OIbSf3H2TUhw1KZHYZlxNJmw6IKiyWZZT8hgGPWnD/hfDa2ls/bc="
+      script: skip
+      before_deploy:
+        - export GITHUB_AUTH="-Dorg.ajoberstar.grgit.auth.password=${GITHUB_PASSWORD} -Dorg.ajoberstar.grgit.auth.username=daggerok"
+        - bash -c './gradlew ${GITHUB_AUTH} reckonTagPush -Preckon.stage=final'
+        #- bash -c './gradlew ${GITHUB_AUTH} reckonTagPush -Preckon.stage=final -b bot/build.gradle.kts'
+        #- bash -c './gradlew ${GITHUB_AUTH} reckonTagPush -Preckon.stage=final -b city/build.gradle.kts'
+        #- bash -c './gradlew ${GITHUB_AUTH} reckonTagPush -Preckon.stage=final -b user-message/build.gradle.kts'
+        - cd $TRAVIS_BUILD_DIR/docs && npm i
+        - cd $TRAVIS_BUILD_DIR/docs && npm run gh-pages
       deploy: &pages
         provider: pages
         github-token: "$GITHUB_TOKEN"

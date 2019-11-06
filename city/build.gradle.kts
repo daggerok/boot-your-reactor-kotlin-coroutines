@@ -6,10 +6,16 @@ plugins {
     kotlin("plugin.spring") version Globals.kotlinVersion
     id("org.springframework.boot") version Globals.springBootVersion
     id("io.spring.dependency-management") version Globals.dependencyManagementVersion
+    id("org.ajoberstar.reckon") version Globals.reckonGradlePluginVersion
 }
 
 group = Globals.groupId
-version = Globals.version
+// version = Globals.version // reckon
+reckon {
+    scopeFromProp()
+    // stageFromProp()
+    snapshotFromProp()
+}
 java.sourceCompatibility = Globals.javaVersion
 
 val developmentOnly by configurations.creating
