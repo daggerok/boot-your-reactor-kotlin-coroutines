@@ -96,6 +96,9 @@ jobs:
         - bash user-message/build/libs/*.jar &
         - wait_for 8080
         - http :8080/actuator
+        - http :8080/
+        - http :8080/users
+        - http :8080/messages
         - http :8080/actuator/health
         - sleep 1s
         - stop_any 80 8080

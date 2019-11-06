@@ -3,3 +3,13 @@ Content-Type: application/json
 Accept: application/json
 
 ###
+GET http://127.0.0.1:8080/users
+Content-Type: application/json
+Accept: application/json
+
+###
+GET http://127.0.0.1:8080/messages
+Content-Type: application/json
+Accept: application/json
+
+###

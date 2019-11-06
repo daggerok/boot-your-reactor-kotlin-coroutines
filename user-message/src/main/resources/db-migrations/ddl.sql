@@ -1,8 +1,10 @@
 DROP TABLE IF EXISTS city;
-CREATE TABLE city (
-  id        INTEGER IDENTITY PRIMARY KEY,
+CREATE TABLE user (
+  id        BIGINT IDENTITY NOT NULL PRIMARY KEY,
   name      VARCHAR(30),
-  state     VARCHAR(30),
-  country   VARCHAR(30),
-  map       VARCHAR(30),
+);
+DROP TABLE IF EXISTS message;
+CREATE TABLE message (
+  id        BIGINT IDENTITY NOT NULL PRIMARY KEY,
+  body      VARCHAR(30),
 );
