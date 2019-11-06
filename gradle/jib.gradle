@@ -20,14 +20,12 @@ tasks.test.dependsOn(tasks.jibDockerBuild)
 tasks.jibDockerBuild.shouldRunAfter(tasks.test)
 
 tasks.create(name: "start"/*: "start-${project.name}"*/, type: Exec) {
-    println("running daggerok/${project.name}:${project.version} as ${project.name}")
-    // executable("docker")
-    // args("run", "--rm", "--name", project.name, "-d", "-p", "8080:8080", jib.to.image)
+    doFirst { println("running daggerok/${project.name}:${project.version} as ${project.name}") }
     commandLine("docker", "run", "--rm", "--name", project.name, "-d", "-p", "8080:8080", jib.to.image)
+    // executable("docker") // args("run", "--rm", "--name", project.name, "-d", "-p", "8080:8080", jib.to.image)
 }
 
 tasks.create(name: "stop", /*"stop-${project.name}", */type: Exec) {
-    println("killing ${project.name}")
+    doFirst { println("killing ${project.name}") }
     commandLine("docker", "rm", "-f", "-v", project.name)
-
 }
