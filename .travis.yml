@@ -156,3 +156,4 @@ cache:
     - ~/.n*
   packages: true
   npm: true
+if: tag IS empty
