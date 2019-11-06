@@ -61,12 +61,12 @@ jobs:
       jdk: openjdk11
       script:
         - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts
-        - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts start-user-message
+        - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts start
         - wait_healthy_docker_containers 1
         - http :8080
         - http :8080/users
         - http :8080/messages
-        - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts stop-user-message
+        - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts stop
     - stage: test
       name: boot-your-reactor-kotlin-coroutines opernjdk11
       jdk: openjdk11
