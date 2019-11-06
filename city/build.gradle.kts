@@ -79,4 +79,7 @@ tasks.withType<BootJar> {
     launchScript()
 }
 
-defaultTasks("clean", "build")
+apply(from = "$projectDir/../gradle/jib.gradle")
+// defaultTasks("clean", "build")
+// defaultTasks("clean", "jib")
+defaultTasks("clean", "test")

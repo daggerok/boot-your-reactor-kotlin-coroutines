@@ -1,0 +1,20 @@
+buildscript {
+    repositories {
+        maven {
+            url("https://plugins.gradle.org/m2/")
+        }
+    }
+    dependencies {
+        classpath("gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:${Globals.jibGradlePluginVersion}")
+    }
+}
+
+apply(plugin: "com.google.cloud.tools.jib")
+
+jib {
+    to.image = "daggerok/${project.name}:${project.version}"
+    container.useCurrentTimestamp = true
+}
+
+tasks.test.dependsOn(tasks.jibDockerBuild)
+tasks.jibDockerBuild.shouldRunAfter(tasks.test)

@@ -3,3 +3,9 @@
 Documentation is deployed on [GitHub Pages](https://daggerok.github.io/boot-your-reactor-kotlin-coroutines/)
 
 Inspired by [GitHub: sdeleuze/spring-messenger](https://github.com/sdeleuze/spring-messenger)
+
+useful links:
+
+* https://github.com/ajoberstar/reckon/blob/master/docs/index.md
+* https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
+* https://github.com/GoogleContainerTools/jib/tree/master/examples/spring-boot

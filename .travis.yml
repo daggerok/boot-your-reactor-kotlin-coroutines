@@ -68,31 +68,31 @@ jobs:
       name: bot opernjdk11
       jdk: openjdk11
       script:
-        - ./gradlew -b bot/build.gradle.kts
+        - ./gradlew -b bot/build.gradle.kts build
         - java -jar bot/build/libs/*.jar
     - stage: test
       name: bot opernjdk11 bash
       jdk: openjdk11
       script:
-        - ./gradlew -b bot/build.gradle.kts
+        - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
     - stage: test
       name: bot opernjdk13
       jdk: openjdk13
       script:
-        - ./gradlew -b bot/build.gradle.kts
+        - ./gradlew -b bot/build.gradle.kts build
         - java -jar bot/build/libs/*.jar
     - stage: test
       name: bot opernjdk13 bash
       jdk: openjdk13
       script:
-        - ./gradlew -b bot/build.gradle.kts
+        - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
     - stage: test
       name: user-message opernjdk11 bash
       jdk: openjdk11
       script:
-        - ./gradlew -b user-message/build.gradle.kts
+        - ./gradlew -b user-message/build.gradle.kts build
         - bash user-message/build/libs/*.jar &
         - wait_for 8080
         - http :8080/actuator
@@ -106,7 +106,7 @@ jobs:
       name: city opernjdk11 bash
       jdk: openjdk11
       script:
-        - ./gradlew -b city/build.gradle.kts
+        - ./gradlew -b city/build.gradle.kts build
         - bash city/build/libs/*.jar &
         - wait_for 8080
         - http :8080

@@ -82,7 +82,6 @@ tasks.withType<BootJar> {
 }
 
 apply(from = "$projectDir/../gradle/jib.gradle")
-
-defaultTasks("clean", "test")
-// defaultTasks("clean", "jib")
 // defaultTasks("clean", "build")
+// defaultTasks("clean", "jib")
+defaultTasks("clean", "test")
