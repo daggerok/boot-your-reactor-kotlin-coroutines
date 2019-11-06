@@ -7,5 +7,10 @@ Inspired by [GitHub: sdeleuze/spring-messenger](https://github.com/sdeleuze/spri
 useful links:
 
 * https://github.com/ajoberstar/reckon/blob/master/docs/index.md
+
+* https://github.com/GoogleContainerTools/jib/
 * https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin
 * https://github.com/GoogleContainerTools/jib/tree/master/examples/spring-boot
+
+* https://github.com/GoogleContainerTools/skaffold/
+* https://skaffold.dev/
