@@ -57,7 +57,7 @@ env:
 jobs:
   include:
     - stage: test
-      name: user-message opernjdk11 jib
+      name: user-message jib
       jdk: openjdk11
       script:
         - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts
@@ -69,35 +69,35 @@ jobs:
         - http :8080/messages
         - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts stop
     - stage: test
-      name: boot-your-reactor-kotlin-coroutines opernjdk11
+      name: boot-your-reactor-kotlin-coroutines
       jdk: openjdk11
       script: ./gradlew
     - stage: test
-      name: bot opernjdk11
+      name: bot
       jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - java -jar bot/build/libs/*.jar
     - stage: test
-      name: bot opernjdk11 bash
+      name: bot bash
       jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
     - stage: test
-      name: bot opernjdk11
+      name: bot
       jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - java -jar bot/build/libs/*.jar
     - stage: test
-      name: bot opernjdk11 bash
+      name: bot bash
       jdk: openjdk11
       script:
         - ./gradlew -b bot/build.gradle.kts build
         - bash bot/build/libs/*.jar
     - stage: test
-      name: user-message opernjdk11 bash
+      name: user-message bash
       jdk: openjdk11
       script:
         - ./gradlew -b user-message/build.gradle.kts build
@@ -111,7 +111,7 @@ jobs:
         - sleep 1s
         - stop_any 80 8080
     - stage: test
-      name: city opernjdk11 bash
+      name: city bash
       jdk: openjdk11
       script:
         - ./gradlew -b city/build.gradle.kts build
@@ -122,7 +122,7 @@ jobs:
         - stop_any 80 8080
     - stage: test
       jdk: openjdk11
-      name: gradle opernjdk11
+      name: gradle
       script: ./gradlew dependencyUpdates -Drevision=release
       after_script: cat build/dependencyUpdates/report.txt
     - stage: deploy
@@ -154,7 +154,7 @@ jobs:
           branch: master
           condition: "$TRAVIS_PULL_REQUEST = false"
 before_cache:
-  - for i in `find ~/.gradle -name '*.lock' -type file` ; do rm -rfv $i ; done
+  - for i in `find ~/.gradle -name '*.lock' -type f` ; do rm -rfv $i ; done
 cache:
   directories:
     - ./docs/node_modules
