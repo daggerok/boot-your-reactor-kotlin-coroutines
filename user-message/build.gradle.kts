@@ -17,6 +17,7 @@ reckon {
     // stageFromProp()
     snapshotFromProp()
 }
+// ./gradlew reckonTagPush -Preckon.stage=final
 java.sourceCompatibility = Globals.javaVersion
 
 val developmentOnly by configurations.creating
@@ -84,4 +85,4 @@ tasks.withType<BootJar> {
 apply(from = "$projectDir/../gradle/jib.gradle")
 // defaultTasks("clean", "build")
 // defaultTasks("clean", "jib")
-defaultTasks("clean", "test")
+defaultTasks("test")
