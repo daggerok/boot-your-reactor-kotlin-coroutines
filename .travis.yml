@@ -62,7 +62,8 @@ jobs:
       script:
         - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts
         - cd $TRAVIS_BUILD_DIR && ./gradlew -b user-message/build.gradle.kts start
-        - wait_healthy_docker_containers 1
+        - wait_for 8080
+        - sleep 10s
         - http :8080
         - http :8080/users
         - http :8080/messages
