@@ -20,7 +20,6 @@ addons:
       - tree
       - httie
       - docker-ce
-      - docker-compose
 install: true
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
