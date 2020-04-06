@@ -31,7 +31,7 @@ before_install:
     fi
     source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
   - stop_any 80 5432 8080
-  #
+before_script:
   - docker-compose version
   - http --version --debug
 env:
