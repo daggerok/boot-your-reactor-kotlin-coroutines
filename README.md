@@ -1,4 +1,4 @@
-# Boot Your Reactor Kotlin Coroutines! [![Build Status](https://travis-ci.org/daggerok/boot-your-reactor-kotlin-coroutines.svg?branch=master)](https://travis-ci.org/daggerok/boot-your-reactor-kotlin-coroutines)
+# Boot Your Reactor Kotlin Coroutines! [![CI](https://github.com/daggerok/boot-your-reactor-kotlin-coroutines/actions/workflows/ci.yaml/badge.svg)](https://github.com/daggerok/boot-your-reactor-kotlin-coroutines/actions/workflows/ci.yaml)
 
 Status: IN PROGRESS
 
