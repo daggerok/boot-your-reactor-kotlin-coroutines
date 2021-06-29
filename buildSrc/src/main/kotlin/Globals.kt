@@ -10,8 +10,8 @@ object Globals {
     const val springBootR2dbcVersion = "0.1.0.M2"
     const val dependencyManagementVersion = "1.0.8.RELEASE"
 
-    const val versionsGradlePluginVersion = "0.27.0"
-    const val reckonGradlePluginVersion = "0.11.0"
+    const val versionsGradlePluginVersion = "0.39.0"
+    const val reckonGradlePluginVersion = "0.13.0"
     const val jibGradlePluginVersion = "1.7.0"
     const val gradleWrapperVersion = "5.6.4"
 
