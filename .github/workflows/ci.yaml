@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    #branches: [ master ]
   pull_request:
-    branches: [ master ]
+    #branches: [ master ]
   workflow_dispatch:
     inputs:
       trigger:
@@ -33,7 +33,7 @@ jobs:
       #  with:
       #    version: '2.5.0'
       #    include-pre-releases: false
-      - run: ./gradlew dependencyUpdates
+      - run: ./gradlew dependencyUpdates -Drevision=release
   tests:
     if: github.event.inputs.trigger == ''
       || !startsWith(github.event.inputs.trigger, 'm')
@@ -79,7 +79,7 @@ jobs:
         java-version: 11
     - run: cd docs ; npm i -E
     - run: cd docs ; npm run gh-pages
-    - name: Deploy 🚀
+    - name: GitHub Pages Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.1.0
       with:
         branch: gh-pages # The branch the action should deploy to.
