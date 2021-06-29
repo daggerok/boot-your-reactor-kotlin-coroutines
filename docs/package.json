@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/daggerok/boot-your-reactor-kotlin-coroutines#readme",
   "devDependencies": {
-    "cross-env": "6.0.3",
+    "cross-env": "7.0.3",
     "markdown-it-vuepress-code-snippet-enhanced": "1.0.1",
-    "vuepress": "1.2.0"
+    "vuepress": "1.8.2"
   }
 }
