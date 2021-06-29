@@ -1,0 +1,86 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      trigger:
+        description: Type m to triggre manual jobs
+        required: false
+        default: ''
+jobs:
+  manual-job:
+    if: startsWith(github.event.inputs.trigger, 'm')
+      || startsWith(github.event.inputs.trigger, 'M')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        id: java-cache
+        with:
+          path: |
+            ~/.m2/repository
+            !~/.m2/repository/com/gituhb/daggerok
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: sudo rm -rf ~/.m2/repository/com/github/daggerok
+      #- name: Install Protoc
+      #  uses: arduino/setup-protoc@v1
+      #  with:
+      #    version: '2.5.0'
+      #    include-pre-releases: false
+      - run: ./gradlew dependencyUpdates
+  tests:
+    if: github.event.inputs.trigger == ''
+      || !startsWith(github.event.inputs.trigger, 'm')
+      || !startsWith(github.event.inputs.trigger, 'M')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        id: java-cache
+        with:
+          path: |
+            ./build
+            ~/.m2/repository
+            !~/.m2/repository/com/gituhb/daggerok
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - run: sudo rm -rf ~/.m2/repository/com/github/daggerok
+      - run: ./gradlew dependencies
+      - run: ./gradlew clean build
+  docs:
+    if: github.event.inputs.trigger == ''
+      || !startsWith(github.event.inputs.trigger, 'm')
+      || !startsWith(github.event.inputs.trigger, 'M')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      id: java-cache
+      with:
+        path: |
+          ~/.m2/repository
+          !~/.m2/repository/com/gituhb/daggerok
+        key: ${{ runner.os }}-${{ hashFiles('**/*.gradle.kts') }}
+    - uses: actions/cache@v2
+      id: npm-cache
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - run: cd docs ; npm i -E
+    - run: cd docs ; npm run gh-pages
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.0
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: docs/.vuepress/dist # The folder the action should deploy.
